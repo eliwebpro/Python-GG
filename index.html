@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+</head>
+<body>
+    <h1>Inventory</h1>
+    <form action="/add" method="post">
+        <label for="item_name">Item Name:</label>
+        <input type="text" id="item_name" name="item_name" required>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
+        <button type="submit">Add</button>
+    </form>
+    <form action="/remove" method="post">
+        <label for="item_name">Item Name:</label>
+        <input type="text" id="item_name" name="item_name" required>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required>
+        <button type="submit">Remove</button>
+    </form>
+    <h2>Current Inventory</h2>
+    <ul>
+        {% for item, quantity in inventory.items() %}
+            <li>{{ item }}: {{ quantity }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
