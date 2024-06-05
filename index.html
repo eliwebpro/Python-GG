@@ -28,6 +28,9 @@
             font-family: Arial, sans-serif;
             padding: 30px;
         }
+        form {
+            display:-moz-inline-stack;
+        }
         table {
             width: 70%;
             margin: auto;
@@ -113,16 +116,7 @@
         <button type="submit">Add Item</button>
     </form>
 
-    <form action="/remove" method="post">
-        <select name="item_name">
-            {% for item in inventory %}
-                <option value="{{ item }}">{{ item }}</option>
-            {% endfor %}
-        </select>
-        <input type="number" name="quantity" placeholder="Quantity">
-        <button type="submit">Remove Item</button>
-    </form>
-
+    
     <table>
         <thead>
             <tr>
@@ -154,5 +148,15 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <form action="/remove" method="post">
+        <select name="item_name">
+            {% for item in inventory %}
+                <option value="{{ item }}">{{ item }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Remove Item</button>
+    </form>
+
 </body>
 </html>
