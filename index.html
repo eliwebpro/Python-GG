@@ -60,5 +60,21 @@
             {% endfor %}
         </tbody>
     </table>
+    <form action="/add" method="post">
+        <input type="text" name="item_name" placeholder="Item name">
+        <input type="number" name="quantity" placeholder="Quantity">
+        <button type="submit">Add Item</button>
+    </form>
+
+    <form action="/remove" method="post">
+        <select name="item_name">
+            {% for item in inventory %}
+                <option value="{{ item }}">{{ item }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="quantity" placeholder="Quantity">
+        <button type="submit">Remove Item</button>
+    </form>
+
 </body>
 </html>
