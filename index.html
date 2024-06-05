@@ -3,130 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory List</title>
+    <title>Inventory</title>
     <style>
-        /* Reset some default styles */
-        body, h1, h2, h3, p, ul, li {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        /* Container for the inventory */
-        .container {
-            max-width: 800px;
+        table {
+            width: 50%;
             margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-collapse: collapse;
         }
-
-        /* Heading styles */
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            margin-bottom: 10px;
-        }
-
-        /* List styles */
-        ul {
-            list-style: none;
-        }
-
-        li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        li:last-child {
-            border-bottom: none;
-        }
-
-        li.checked {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        li.not-checked {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        /* Quantity styling */
-        .quantity {
-            background: #f0f0f0;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        /* Add/Remove button styles */
-        button {
-            background: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        button:hover {
-            background: #0056b3;
-        }
-
-        /* Form styles */
-        form {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        form input[type="text"], form input[type="number"] {
-            width: calc(50% - 60px);
-            padding: 10px;
-            margin-right: 10px;
+        th, td {
+            padding: 8px 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+        }
+        .button-group form {
+            display: inline-block;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Inventory List</h1>
-        <ul>
+    <h1 style="text-align: center;">Inventory Management</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for item, quantity in inventory.items() %}
-            <li class="{{ 'checked' if quantity > 0 else 'not-checked' }}">
-                <span>{{ item }}</span>
-                <span class="quantity">{{ quantity }}</span>
-            </li>
+            <tr>
+                <td>{{ item }}</td>
+                <td id="quantity-{{ loop.index }}">{{ quantity }}</td>
+                <td>
+                    <div class="button-group">
+                        <form method="POST" action="/add">
+                            <input type="hidden" name="item_name" value="{{ item }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit">+</button>
+                        </form>
+                        <form method="POST" action="/remove">
+                            <input type="hidden" name="item_name" value="{{ item }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit">-</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
             {% endfor %}
-        </ul>
-        <form action="/add" method="POST">
-            <input type="text" name="item_name" placeholder="Item Name">
-            <input type="number" name="quantity" placeholder="Quantity">
-            <button type="submit">Add Item</button>
-        </form>
-        <form action="/remove" method="POST">
-            <input type="text" name="item_name" placeholder="Item Name">
-            <input type="number" name="quantity" placeholder="Quantity">
-            <button type="submit">Remove Item</button>
-        </form>
-    </div>
+        </tbody>
+    </table>
 </body>
 </html>
