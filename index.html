@@ -3,29 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory</title>
+    <title>Inventory List</title>
+    <link rel="stylesheet" href="invetory.css">
 </head>
 <body>
-    <h1>Inventory</h1>
-    <form action="/add" method="post">
-        <label for="item_name">Item Name:</label>
-        <input type="text" id="item_name" name="item_name" required>
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required>
-        <button type="submit">Add</button>
-    </form>
-    <form action="/remove" method="post">
-        <label for="item_name">Item Name:</label>
-        <input type="text" id="item_name" name="item_name" required>
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required>
-        <button type="submit">Remove</button>
-    </form>
-    <h2>Current Inventory</h2>
-    <ul>
-        {% for item, quantity in inventory.items() %}
-            <li>{{ item }}: {{ quantity }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>Inventory List</h1>
+        <ul>
+            <li class="checked">
+                <span>TGR 010</span>
+                <span class="quantity">7</span>
+            </li>
+            <li class="checked">
+                <span>TMR 010</span>
+                <span class="quantity">10</span>
+            </li>
+            <li class="not-checked">
+                <span>THR 010</span>
+                <span class="quantity">2</span>
+            </li>
+            <!-- Add more list items here -->
+        </ul>
+        <form id="inventoryForm">
+            <input type="text" id="itemName" placeholder="Item Name">
+            <input type="number" id="itemQuantity" placeholder="Quantity">
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to handle form submission and list updates
+        document.getElementById('inventoryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const itemName = document.getElementById('itemName').value;
+            const itemQuantity = document.getElementById('itemQuantity').value;
+            const newItem = document.createElement('li');
+            newItem.classList.add(itemQuantity > 0 ? 'checked' : 'not-checked');
+            newItem.innerHTML = `<span>${itemName}</span><span class="quantity">${itemQuantity}</span>`;
+            document.querySelector('ul').appendChild(newItem);
+        });
+    </script>
 </body>
 </html>

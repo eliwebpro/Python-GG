@@ -1,0 +1,107 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Container for the inventory */
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+/* List styles */
+ul {
+    list-style: none;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li.checked {
+    background: #d4edda;
+    color: #155724;
+}
+
+li.not-checked {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Quantity styling */
+.quantity {
+    background: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Add/Remove button styles */
+button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Form styles */
+form {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form input[type="text"] {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form input[type="number"] {
+    width: 60px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
