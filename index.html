@@ -81,6 +81,13 @@
 </head>
 <body>
     <h1 style="text-align: center;">Aladdin Inventory's</h1>
+    
+    <form action="/add" method="post">
+        <input type="text" name="item_name" placeholder="Item name">
+        <input type="number" name="quantity" placeholder="Quantity">
+        <button type="submit">Add Item</button>
+    </form>
+
     <form action="/remove" method="post">
         <select name="item_name">
             {% for item in inventory %}
@@ -121,12 +128,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <form action="/add" method="post">
-        <input type="text" name="item_name" placeholder="Item name">
-        <input type="number" name="quantity" placeholder="Quantity">
-        <button type="submit">Add Item</button>
-    </form>
-
+   
     
 
 </body>
