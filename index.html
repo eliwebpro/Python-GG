@@ -4,37 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
-    <link rel="stylesheet" href="invetory.css">
+    <style>
+        /* Estilos para dispositivos de largura maior que 768px */
+        @media (min-width: 768px) {
+            /* Adicione aqui os estilos para telas maiores */
+            body {
+                font-size: 16px;
+            }
+            /* Exemplo: aumentando o tamanho da fonte para telas maiores */
+        }
+
+        /* Estilos para dispositivos de largura igual ou menor que 768px */
+        @media (max-width: 768px) {
+            /* Adicione aqui os estilos para telas menores */
+            body {
+                font-size: 14px;
+            }
+            /* Exemplo: diminuindo o tamanho da fonte para telas menores */
+        }
+
+        /* Estilos para todos os dispositivos */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+        table {
+            width: 70%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #4e7af1;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+        }
+        .button-group form {
+            display: inline-block;
+        }
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: content-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-bottom: 10px;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            margin-right: 10px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: black;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #dd0973;
+        }
+
+        select {
+            width: 150px;
+            align-self: center;
+        }
+
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <img src="aladdin-logo.png" alt="Logo">
-        </div>
+    
+    <h1 style="text-align: center;">Inventory Management</h1>
 
-        <h1>Inventory</h1>
+    <form action="/add" method="post">
+        <input type="text" name="item_name" placeholder="Item name">
+        <input type="number" name="quantity" placeholder="Quantity">
+        <button type="submit">Add Item</button>
+    </form>
 
-        <ul>
-            {% for item, quantity in inventory.items()|sort %}
-                <li>{{ item }} - {{ quantity }}</li>
+    <form action="/remove" method="post">
+        <select name="item_name">
+            {% for item in inventory %}
+                <option value="{{ item }}">{{ item }}</option>
             {% endfor %}
-        </ul>
+        </select>
+        <input type="number" name="quantity" placeholder="Quantity">
+        <button type="submit">Remove Item</button>
+    </form>
 
-        <form action="/add" method="post" class="form">
-            <input type="text" name="item_name" placeholder="Item name">
-            <input type="number" name="quantity" placeholder="Quantity">
-            <button type="submit">Add Item</button>
-        </form>
-
-        <form action="/remove" method="post" class="form">
-            <select name="item_name">
-                {% for item in inventory|sort %}
-                    <option value="{{ item }}">{{ item }}</option>
-                {% endfor %}
-            </select>
-            <input type="number" name="quantity" placeholder="Quantity">
-            <button type="submit">Remove Item</button>
-        </form>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item, quantity in inventory.items() %}
+            <tr>
+                <td>{{ item }}</td>
+                <td id="quantity-{{ loop.index }}">{{ quantity }}</td>
+                <td>
+                    <div class="button-group">
+                        <form method="POST" action="/add">
+                            <input type="hidden" name="item_name" value="{{ item }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit">+</button>
+                        </form>
+                        <form method="POST" action="/remove">
+                            <input type="hidden" name="item_name" value="{{ item }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit">-</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
