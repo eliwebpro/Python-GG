@@ -80,13 +80,22 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Inventory Management</h1>
+    <h1 style="text-align: center;">Aladdin Inventory's</h1>
+    <form action="/remove" method="post">
+        <select name="item_name">
+            {% for item in inventory %}
+                <option value="{{ item }}">{{ item }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" name="quantity" placeholder="Quantity">
+        <button type="submit">Remove Item</button>
+    </form>
     <table>
         <thead>
             <tr>
                 <th>Item</th>
                 <th>Quantity</th>
-                <th>Actions</th>
+                <th>Add / Remove</th>
             </tr>
         </thead>
         <tbody>
@@ -118,15 +127,7 @@
         <button type="submit">Add Item</button>
     </form>
 
-    <form action="/remove" method="post">
-        <select name="item_name">
-            {% for item in inventory %}
-                <option value="{{ item }}">{{ item }}</option>
-            {% endfor %}
-        </select>
-        <input type="number" name="quantity" placeholder="Quantity">
-        <button type="submit">Remove Item</button>
-    </form>
+    
 
 </body>
 </html>
