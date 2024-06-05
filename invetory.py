@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+# Convertemos a lista de tuplas em um dicionário para o inventário
 inventory_data = [
     ("Curb-mount Flashing", 0),
     ("Deck Mount", 0),
@@ -114,6 +115,8 @@ inventory_data = [
     ("ZSCD, D06, 1163SWL", 1)
 ]
 
+# Convertemos a lista de tuplas em um dicionário para o inventário
+inventory = {item[0]: item[1] for item in inventory_data}
 
 @app.route('/')
 def index():
